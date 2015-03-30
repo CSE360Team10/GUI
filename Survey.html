@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <script src="srcripter.js"></script>
+    <link rel="stylesheet" type="text/css" href="StyleSheet.css">
+    <title></title>
+    <style>
+        table, th, td {
+            border-bottom: 1px solid black;
+            border-collapse: collapse;
+            padding-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="survey">
+        <div style="margin-left: 20px;">
+            <p>
+                Please complete the following survey to help a doctor understand your symptoms. After submitting
+                the survey, a doctor will be assigned to you to administer care.
+            </p>
+            <p>
+                <b>Instructions:</b> Please select the number that best describes:
+            </p>
+            <hr style="margin-left: -20px;" />
+            <table>
+                <tr style="border-bottom: 1px solid black;">
+                    <td style="padding-top:20px;">
+                        No pain
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="1.0" onclick="selectPain(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="1.1" onclick="selectPain(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="1.2" onclick="selectPain(this, 2);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="1.3" onclick="selectPain(this, 3);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="1.4" onclick="selectPain(this, 4);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="1.5" onclick="selectPain(this, 5);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="1.6" onclick="selectPain(this, 6);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="1.7" onclick="selectPain(this, 7);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="1.8" onclick="selectPain(this, 8);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="1.9" onclick="selectPain(this, 9);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="1.10" onclick="selectPain(this, 10);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible pain
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px;">
+                        Not tired
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="2.0" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="2.1" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="2.2" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="2.3" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="2.4" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="2.5" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="2.6" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="2.7" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="2.8" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="2.9" onclick="selectTiredness(this);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="2.10" onclick="selectTiredness(this);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible tiredness
+                    </td>
+                <tr>
+                    <td style="padding-top:20px;">
+                        Not nauseated
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="3.0" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="3.1" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="3.2" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="3.3" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="3.4" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="3.5" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="3.6" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="3.7" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="3.8" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="3.9" onclick="selectNausea(this);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="3.10" onclick="selectNausea(this);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible nausea
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px;">
+                        Not depressed
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="4.0" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="4.1" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="4.2" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="4.3" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="4.4" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="4.5" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="4.6" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="4.7" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="4.8" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="4.9" onclick="selectDepression(this);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="4.10" onclick="selectDepression(this);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible depression
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px;">
+                        Not anxious
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="5.0" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="5.1" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="5.2" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="5.3" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="5.4" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="5.5" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="5.6" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="5.7" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="5.8" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="5.9" onclick="selectAnxiety(this);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="5.10" onclick="selectAnxiety(this);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible anxiety
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px;">
+                        Not drowsy
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="6.0" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="6.1" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="6.2" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="6.3" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="6.4" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="6.5" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="6.6" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="6.7" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="6.8" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="6.9" onclick="selectDrowsiness(this);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="6.10" onclick="selectDrowsiness(this);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible drowsiness
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px;">
+                        Best appetite
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="7.0" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="7.1" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="7.2" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="7.3" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="7.4" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="7.5" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="7.6" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="7.7" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="7.8" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="7.9" onclick="selectAppetite(this);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="7.10" onclick="selectAppetite(this);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible appetite
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px;">
+                        Best feeling of wellbeing
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="8.0" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="8.1" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="8.2" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="8.3" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="8.4" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="8.5" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="8.6" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="8.7" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="8.8" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="8.9" onclick="selectWellbeing(this);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="8.10" onclick="selectWellbeing(this);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible possible feeling of wellbeing
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px;">
+                        No shortness of breath
+                    </td>
+                    <td>
+                        <div style="margin-right: 20px; margin-left: 20px;">
+                            <div class="selectNumberDivContainer">0<div class="selectNumberDiv" id="9.0" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">1<div class="selectNumberDiv" id="9.1" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">2<div class="selectNumberDiv" id="9.2" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">3<div class="selectNumberDiv" id="9.3" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">4<div class="selectNumberDiv" id="9.4" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">5<div class="selectNumberDiv" id="9.5" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">6<div class="selectNumberDiv" id="9.6" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">7<div class="selectNumberDiv" id="9.7" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">8<div class="selectNumberDiv" id="9.8" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">9<div class="selectNumberDiv" id="9.9" onclick="selectBreath(this);"></div></div>
+                            <div class="selectNumberDivContainer">10<div class="selectNumberDiv" id="9.10" onclick="selectBreath(this);"></div></div>
+                        </div>
+                    </td>
+                    <td style="padding-top:20px;">
+                        Worst possible shortness of breath
+                    </td>
+                </tr>
+            </table>
+            <p>
+                Please list any other symptoms you are experiencing:
+            </p>
+            <textarea rows="4" cols="50"></textarea>
+            <br />
+            <br />
+            <button>Submit</button>
+            <br/>
+            <br/>
+        </div>
+    </div>
+
+</body>
+</html>
