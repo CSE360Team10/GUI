@@ -1,0 +1,120 @@
+﻿body {
+    
+}
+
+/*Div for login/Account creation*/
+.loginDiv {
+    text-align: center;
+    width: 200px;
+    height: auto;
+    font: 12px arial;
+    float:left;    
+
+}
+
+/*Div for changing account information*/
+.accountInfo {
+    border: 1px solid black;
+    text-align: center;
+    width: 220px;
+    height: auto;
+    font: 12px arial;
+    float:left; 
+
+}
+
+.accountInfo table {
+
+    border: none;
+}
+
+/*Div for initial patient and/or doctor menu*/
+.patientMenu {
+
+    width: 400px;
+    height: auto;
+    border: 1px solid black;
+    height: auto;
+    font: 12px arial;
+    float:left; 
+
+}
+
+/*Div for patient to take survey*/
+.survey {
+    width: 800px;
+    height: auto;
+    border: 1px solid black;
+    height: auto;
+    font: 12px arial;
+    float:left; 
+
+}
+
+/*Div for selecting an individual number on the survey*/
+.selectNumberDiv {
+    border-radius: 50%;
+    border: 1px solid gray;
+    background-color: lightgray;
+    width: 15px;
+    height: 15px;
+    margin-top: 5px;
+
+}
+
+.selectNumberDiv:hover {
+        background-color: lightgreen;
+
+}
+
+.selectedNumberDiv {
+    border-radius: 50%;
+    border: 1px solid gray;
+    background-color: lightgreen;
+    width: 15px;
+    height: 15px;
+    margin-top: 5px;
+}
+
+.selectNumberDivContainer {
+    height: 30px;
+    width:auto;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 10px;
+    float: left;
+    display: inline-block;
+    text-align: center;
+}
+
+
+/*Div for a row of the survey*/
+.surveyRowDiv {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+
+}
+
+.btn {
+	
+	border: 1px solid #111c23;
+	font-family: arial;
+	text-align:center;
+	color: #111c23;
+	padding-top:10px;
+    padding-bottom:10px;
+	border-radius: 10px; 
+	background-image: linear-gradient(to top, #90949C 56%, #AFB3BA 87%);
+	cursor: pointer;
+		
+	}
+
+
+.btn:hover {
+	
+	background-image: linear-gradient(to top, #79c800 56%, #CAE6A1 87%);
+	
+}
+
+

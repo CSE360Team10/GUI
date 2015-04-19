@@ -475,3 +475,12 @@ function selectBreath(selected)
     selected.className = "selectedNumberDiv";
 }
 
+function getResults()
+{
+    var symptoms = document.getElementById("otherSymptoms").value;
+
+    // need to send info from results array to the file, too
+
+    window.location = "PatientMenu.html";
+}
+
