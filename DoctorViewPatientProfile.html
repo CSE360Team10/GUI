@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <script src="srcripter.js"></script>
+    <script src="GetInfo.js"></script>
+    <script src="scripter.js"></script>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css">
     <title></title>
     <style>
@@ -20,32 +21,32 @@
         }
     </style>
 </head>
-<body>
+<body onload="displayPatientInfo(); displayResponseHistory();">
     <div align="left" style="font: 14px arial; margin-left: 10px; margin-top: 10px; margin-bottom: 30px;">
-        <h3>{{Patient's Name}}'s Profile</h3>
+        <h3 id="name"></h3>
         <table width="200">
             <tr style="background-color: lightgray;">
                 <td>
                     Age
                 </td>
-                <td>
-                    32
+                <td id="age">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                      Weight
                 </td>
-                <td>
-                    156
+                <td id="weight">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Medical Conditions
                 </td>
-                <td>
-                    Allergic to peanuts
+                <td id="conditions">
+                    
                 </td>
             </tr>
         </table>
@@ -53,7 +54,7 @@
     <br />
     <div style="margin-left: 10px;">
         <p style="font: 14px arial;">Click a date to view an individual response.</p>
-        <table>
+        <table id="table">
             <tr style="background-color: lightgray;">
                 <td>
                     Date/Time Submitted
@@ -68,34 +69,7 @@
                     Summary
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <a href="">11/11/2011 12:07 PM</a>
-                </td>
-                <td>
-                    Not Cured
-                </td>
-                <td>
-                    Critical
-                </td>
-                <td>
-                    Stomach Pain
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="">11/11/2011 12:07 PM</a>
-                </td>
-                <td>
-                    Not Cured
-                </td>
-                <td>
-                    Critical
-                </td>
-                <td>
-                    Stomach Pain
-                </td>
-            </tr>
+           
         </table>
     </div>
         

@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+    <script src="GetInfo.js"></script>
     <script src="ChooseColor.js"></script>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css">
     <title></title>
@@ -20,9 +21,9 @@
         }
     </style>
 </head>
-<body onload="colorPriority();">
+<body onload="displayResponse(); colorPriority();">
     <div align="left" style="font: 14px arial; margin-left: 10px; margin-top: 10px;">
-        <b>Priority: </b><div id="priority" style="display: inline-block;">Moderate</div>
+        <b>Priority: </b><div id="priority" style="display: inline-block;"></div>
         <table width="200">
             <tr style="background-color: lightgray;">
                 <td>
@@ -34,10 +35,10 @@
             </tr>
             <tr>
                 <td>
-                    <a href="">Joe Smith</a>
+                    <a href="DoctorViewPatientProfile.html"><div id="patient"></div></a>
                 </td>
-                <td>
-                    11/11/2011 12:36 PM
+                <td id="date">
+                    
                 </td>
             </tr>
             <tr style="background-color: lightgray;">
@@ -52,79 +53,79 @@
                 <td>
                     Pain
                 </td>
-                <td>
-                    3
+                <td id="pain">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Tiredness
                 </td>
-                <td>
-                    3
+                <td id="tiredness">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Nausea
                 </td>
-                <td>
-                    3
+                <td id="nausea">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Depression
                 </td>
-                <td>
-                    3
+                <td id="depression">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Anxiety
                 </td>
-                <td>
-                    3
+                <td id="anxiety">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Drowsiness
                 </td>
-                <td>
-                    3
+                <td id="drowsiness">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Appetite
                 </td>
-                <td>
-                    3
+                <td id="appetite">
+                    
                 </td>
             <tr>
                 <td>
                     Wellbeing
                 </td>
-                <td>
-                    3
+                <td id="wellbeing">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Breathing
                 </td>
-                <td>
-                    3
+                <td id="breathing">
+                    
                 </td>
             </tr>
             <tr>
                 <td>
                     Overall
                 </td>
-                <td>
-                    3
+                <td id="overall">
+                    
                 </td>
             </tr>
 
@@ -143,14 +144,14 @@
             </tr>
             <tr>
                 <td>
-                    <textarea></textarea>
+                    <textarea id="prescription"></textarea>
                 </td>
                 <td>
-                    <textarea></textarea>
+                    <textarea id="orders"></textarea>
                 </td>
             </tr>
         </table>
-        <div class="btn" style="margin-top: 100px; margin-left: 100px; width:150px;" >
+        <div class="btn" style="margin-top: 100px; margin-left: 100px; width:150px;" onclick="doctorsOrders();" >
             Submit
         </div>
     </div>

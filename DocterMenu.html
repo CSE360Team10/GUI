@@ -2,15 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <script src="srcripter.js"></script>
+    <script src="GetInfo.js"></script>
+    <script src="scripter.js"></script>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css">
     <title></title>
 </head>
-<body>
+<body onload="helloDoctor()">
 
     <div class="patientMenu">
         <div style="margin-left: 20px;">
-            <h1>Hello Dr. {{Doctor Name}}</h1>
+            <h1 id="hello"></h1>
             <h2>Welcome to your Account</h2>
             <hr style="margin-left: -20px;" />
             <h3>Options:</h3>

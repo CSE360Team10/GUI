@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <script src="srcripter.js"></script>
+    <script src="GetInfo.js"></script>
+    <script src="scripter.js"></script>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css">
     <title></title>
     <style>
@@ -16,7 +17,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="patientViewResponse();">
     <table width="600">
         <tr style="background-color: lightgray;">
             <td>
@@ -27,11 +28,11 @@
             </td>
         </tr>
         <tr>
-            <td>
-                Smith
+            <td id="doctor">
+                
             </td>
-            <td>
-                11/1/2011 12:36 PM
+            <td id="date">
+                
             </td>
         </tr>
         <tr style="background-color: lightgray;">
@@ -43,11 +44,11 @@
             </td>
         </tr>
         <tr>
-            <td>
-                30 mg advil
+            <td id="prescription">
+                
             </td>
-            <td >
-                Get plenty of rest!
+            <td id="orders">
+
             </td>
         </tr>
     </table>

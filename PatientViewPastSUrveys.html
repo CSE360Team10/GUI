@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <script src="srcripter.js"></script>
+    <script src="GetInfo.js"></script>
+    <script src="scripter.js"></script>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css">
     <title></title>
     <style>
@@ -20,8 +21,8 @@
         }
     </style>
 </head>
-<body>
-    <table width="600">
+<body onload="patientDisplayResponseHistory();">
+    <table width="600" id="table">
         <tr style="background-color: lightgray;">
             <td>
                 Date/Time Submitted
@@ -36,48 +37,7 @@
                 Summary
             </td>
         </tr>
-        <tr>
-            <td>
-                <a href="">11/1/2011 12:36 PM</a>
-            </td>
-            <td>
-                Critical
-            </td>
-            <td>
-                Not Cured
-            </td>
-            <td>
-                Stomach Pain
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="">11/1/2011 12:36 PM</a>
-            </td>
-            <td>
-                Critical
-            </td>
-            <td>
-                Not Cured
-            </td>
-            <td>
-                Stomach Pain
-            </td>
-        </tr>
-            <tr>
-            <td>
-                11/1/2011 12:36 PM
-            </td>
-            <td>
-                Critical
-            </td>
-            <td>
-                Not Cured
-            </td>
-            <td>
-                Stomach Pain
-            </td>
-        </tr>
+       
     </table>
 </body>
 </html>
