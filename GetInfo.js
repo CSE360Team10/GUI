@@ -41,14 +41,6 @@ function createAccount() {
         return false;
     }
    
-    // parse for valid email
-    /*
-    if valid
-        submit = true;
-    else
-        alert("Please enter a valid email.");
-
-    */
     if (email == "") {
         alert("Please enter a valid email.");
         return false;
@@ -246,7 +238,7 @@ function patientDisplayResponseHistory() {
     // display past responses
     // use arrays to get different info for each cell. Should be able to use a for loop I think
     var dates = ["11/11/2011 12:07 PM", "12/11/2011 01:34 PM"];
-    var priority = ["Critical", "Moderate"];
+    var priority = ["Critical", "Moderate", "Low"];
     var status = ["Not Cured", "Cured"];
     var summary = ["stomach pain", "headache"];
 
@@ -271,7 +263,7 @@ function displayResponses() {
 
     var dates = ["11/11/2011 12:07 PM", "12/11/2011 01:34 PM", "12/11/2011 01:34 PM"];
     var patients = ["Jake Irvin", "Nichole Emmons", "Goober Peas"];
-    var priority = ["Critical", "Moderate", "Normal"];
+    var priority = ["Critical", "Moderate", "Low"];
     
     var table = document.getElementById("tableID");
 
@@ -332,5 +324,25 @@ function getAllDrsOrders() {
 
         cell1.innerHTML = dates[i];
         cell2.innerHTML = "Doctor's Orders for Survey 1, 2, 3...";
+    }
+}
+
+//This function retrieves the full list of patient accounts and displays them
+function listPatients() {
+    var table = document.getElementById("patientListTable");
+    var name = "";
+    //want to continually pull users until we hit the end of the list
+
+    var userref = ref.child("users/");
+    ref.on("value", function (snapshot) {
+        var usr = snapshot.val();
+        name = usr.fName;
+    });
+
+    for (i = 0; i < dates.length; i++) {
+        var row = table.insertRow(1);
+        var cell1 = row.insertCell(0);
+
+        cell1.innerHTML = "<a href='DoctorViewPatientProfile.html'>" + name + "</a>"; //needs to display patient name + hyperlink
     }
 }

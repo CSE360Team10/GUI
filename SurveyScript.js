@@ -481,9 +481,15 @@ function getResults()
     var usr = document.getCookie(); //retrieve cookie value to know what user to store the completed survey under
     //cookie will be in the format username=id, where we will check against the id to know where to store the survey
     //will need to store survey object here via Firebase
+
     var id = ""; // need to get the correct id
+    var ida = usr.split("="); //splits at the = in the cookie id
+    id = ida[1]; //second slot in array is the username
     var date = ""; //need to calculate date
     var symptoms = document.getElementById("otherSymptoms").value;
+
+    //the survey object should store: Date completed, array of responses from the one survey, and overall score to be able to set a priority on the doctor's page.
+
     ref.child("users/" + id + "/surveys/" + date).set({
         r0: results[0],
         r1: results[1],
@@ -509,10 +515,28 @@ function getResults()
         r9: symptoms,
         user: id
     });
-    //calculate overall severity here
-    
-    
 
-    window.location = "PatientMenu.html";
+    //calculate overall severity here
+    var overall = 0;
+    for (var i = 0; i < 9; i++) //there will always be 9 questions to this specific survey
+    {
+        overall = overall + results[i];
+    }
+    overall = overall / 9; //average the score.
+
+    if (overall <= 3) //Patient has a low priority setting
+    {
+        //set some var inside survey object to low
+    }
+    else if (overall > 3 && overall <= 6) //moderate severity
+    {
+        //set some var inside survey object to moderate
+    }
+    else //high severity
+    {
+        //set some var inside survey object to critical
+    }
+
+    window.location = "PatientMenu.html"; //these button navigations are no longer working for some reason
 }
 
