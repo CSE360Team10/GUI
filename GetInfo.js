@@ -214,7 +214,7 @@ function displayResponseHistory() {
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
 
-        cell1.innerHTML = "<a href='DocterViewResponse.html'>" + dates[i] + "</a>";
+        cell1.innerHTML = "<a href='ViewDocterResponse.html'>" + dates[i] + "</a>";
         cell2.innerHTML = priority[i];
         cell3.innerHTML = status[i];
         cell4.innerHTML = summary[i];
@@ -297,3 +297,21 @@ function patientViewResponse() {
     orders.innerHTML = "2 joints in morning, noon, and night.";
 }
 
+//This will retrieve all doctors orders from past surveys taken by a particular patient.
+//Retrieves a patient's surveys, then takes the doctors order field from it
+//and displays them in order from most recent to oldest
+function getAllDrsOrders() {
+
+    //will need to retrieve past survey data, parse it, done
+
+    var table = document.getElementById("allDrsOrders");
+
+    for (i = 0; i < dates.length; i++) {
+        var row = table.insertRow(1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+
+        cell1.innerHTML = dates[i];
+        cell2.innerHTML = "Doctor's Orders for Survey 1, 2, 3...";
+    }
+}

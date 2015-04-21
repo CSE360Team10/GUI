@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<!-- This is the HTML for the page that displays all of the past doctors' orders to the patient.
+    It will be a concise way to see all doctor suggestions from all past surveys.
+    It will display by date, from most recent to oldest.-->
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="GetInfo.js"></script>
+    <script src="scripter.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <link rel="stylesheet" type="text/css" href="StyleSheet.css">
+    <title></title>
+</head>
+<body onload="getAllDrsOrders()">
+    <table width="600" id="allDrsOrders">
+        <tr style="background-color: lightgray;">
+            <td>
+                Date/Time Submitted
+            </td>
+            <td>
+                Doctor's Orders
+            </td>
+        </tr>
+</table>
+</body>
+</html>
