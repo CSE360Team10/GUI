@@ -4,6 +4,7 @@ Javascript code for getting survey results
 
 // array with all the results
 var results = [0,0,0,0,0,0,0,0,0]
+var ref = new Firebase("group10app.firebaseio.com/web/data/");
 
 function selectPain(selected)
 {
@@ -477,9 +478,40 @@ function selectBreath(selected)
 
 function getResults()
 {
+    var usr = document.getCookie(); //retrieve cookie value to know what user to store the completed survey under
+    //cookie will be in the format username=id, where we will check against the id to know where to store the survey
+    //will need to store survey object here via Firebase
+    var id = ""; // need to get the correct id
+    var date = ""; //need to calculate date
     var symptoms = document.getElementById("otherSymptoms").value;
-
-    // need to send info from results array to the file, too
+    ref.child("users/" + id + "/surveys/" + date).set({
+        r0: results[0],
+        r1: results[1],
+        r2: results[2],
+        r3: results[3],
+        r4: results[4],
+        r5: results[5],
+        r6: results[6],
+        r7: results[7],
+        r8: results[8],
+        r9: symptoms
+    });
+    ref.child("/surveys/" + date).set({
+        r0: results[0],
+        r1: results[1],
+        r2: results[2],
+        r3: results[3],
+        r4: results[4],
+        r5: results[5],
+        r6: results[6],
+        r7: results[7],
+        r8: results[8],
+        r9: symptoms,
+        user: id
+    });
+    //calculate overall severity here
+    
+    
 
     window.location = "PatientMenu.html";
 }
