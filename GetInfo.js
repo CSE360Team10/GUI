@@ -1,22 +1,19 @@
 ﻿/* Functions to get info from forms */
 
-document.cookie; //create a cookie so we know which user is doing what thing
-var ref = new Firebase("group10app.firebaseio.com/web/data");
+//document.cookie; //create a cookie so we know which user is doing what thing
+var ref = new Firebase("https://group10app.firebaseio.com");
 
+// this function creates a new account for the user on the Firebase server
 function createAccount() {
 
-    var userref = ref.child("users")
-
-    var emailCheck = false;
     var passwordCheck = false;
     // get info filled out from Create Account
     var firstName = document.getElementById("firstName").value;
     var lastName = document.getElementById("lastName").value;
-    var secQuestion = document.g
     var selector = document.getElementById("selector");
     var question = selector.options[selector.selectedIndex].value;
     var answer = document.getElementById("answer").value;
-    var email = document.getElementById("email").value;
+    var email1 = document.getElementById("email").value;
     var password1 = document.getElementById("password1").value;
     var password2 = document.getElementById("password2").value;
 
@@ -32,7 +29,7 @@ function createAccount() {
     }
     if (question == "")
     {
-        alert("Please select a security quesiton.")
+        alert("Please select a security quesiton.");
         return false;
     }
     if (answer == "")
@@ -41,7 +38,7 @@ function createAccount() {
         return false;
     }
    
-    if (email == "") {
+    if (email1 == "") {
         alert("Please enter a valid email.");
         return false;
     }
@@ -62,45 +59,67 @@ function createAccount() {
     {
         passwordCheck = true;
     }
-
-    emailCheck = true;
     
-    var index = email.indexOf('.')
-    var id = email.substr(0,index);
-    
-    usersRef.child(id).set({
-        fName: firstName,
-        lName: lastName,
-        q: question,
-        an: answer,
-        eml: email,
-        pass: password1,
-        actType: 0
-    });
+    if (passwordCheck == true) {
+       
+        ref.createUser({
+            email: email1,
+            password: password1
+        }, function (error, userData) {
+            if (error) {
+                console.log("Error creating user:", error);
+            } else {
+                console.log("Successfully created user account with uid:", userData.uid);
+            }
+        });
+        
+        var isNewUser = true;
 
-    if (emailCheck == true && passwordCheck == true)
-    {
+        //user var becomes an authdata object 
+        user = ref.authWithPassword({
+            email : email1,
+            password : password1
+        }, function (error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+            }
+        }, { remember : "sessionOnly" }); //logs that user in and returns their specific uid
+        
+        //adds personal info to the user's account data set
+
+        ref.onAuth(function (authData) {
+            if (authData && isNewUser) {
+                // save the user's profile into Firebase so we can list users,
+                // use them in Security and Firebase Rules, and show profiles
+                ref.child("users").child(authData.uid).set({
+                    fName: firstName,
+                    lName: lastName,
+                    q: question,
+                    an: answer
+                });
+            }
+        });
+   
         window.location = "PatientMenu.html";
     }
-    
-    document.cookie = "username="+id;
+
 }
 
 // NEED TO CHANGE TO PULL INFO FROM THE USER OBJECT, DEPENDING ON WHO IS LOGGED IN
 
 // Display's a patient's first name in the menu
-function helloUser(email) {
-    document.cookie = "username=" + email; //create a cookie with the email
+function helloUser() {
     var name = "";
-    var index = email.indexOf('.')
-    var id = email.substr(0,index);
-    var userref = ref.child("users/"+ id);
-    ref.on("value", function(snapshot) {
+    var userref = ref.child("users").child(user.uid);
+    alert("Path to data made");
+    userref.on("value", function(snapshot) {
         var usr = snapshot.val();
         name = usr.fName;
     });
     var displayName = document.getElementById("hello");
-
+    
     displayName.innerHTML = "Hello " + name + "!";
 }
 
