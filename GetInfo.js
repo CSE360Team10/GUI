@@ -2,6 +2,7 @@
 
 //document.cookie; //create a cookie so we know which user is doing what thing
 var ref = new Firebase("https://group10app.firebaseio.com");
+var user;
 
 // this function creates a new account for the user on the Firebase server
 function createAccount() {
@@ -63,8 +64,8 @@ function createAccount() {
     if (passwordCheck == true) {
        
         ref.createUser({
-            email: email1,
-            password: password1
+            email : email1,
+            password : password1
         }, function (error, userData) {
             if (error) {
                 console.log("Error creating user:", error);
@@ -76,7 +77,7 @@ function createAccount() {
         var isNewUser = true;
 
         //user var becomes an authdata object 
-        user = ref.authWithPassword({
+        ref.authWithPassword({
             email : email1,
             password : password1
         }, function (error, authData) {
@@ -85,7 +86,7 @@ function createAccount() {
             } else {
                 console.log("Authenticated successfully with payload:", authData);
             }
-        }, { remember : "sessionOnly" }); //logs that user in and returns their specific uid
+        }, { remember: "sessionOnly" }); //logs that user in and returns their specific uid
         
         //adds personal info to the user's account data set
 
@@ -112,8 +113,10 @@ function createAccount() {
 // Display's a patient's first name in the menu
 function helloUser() {
     var name = "";
-    var userref = ref.child("users").child(user.uid);
+    var userRef = ref.child("users");
+    userref = userRef.child(user.uid); //not making the connection here
     alert("Path to data made");
+
     userref.on("value", function(snapshot) {
         var usr = snapshot.val();
         name = usr.fName;
