@@ -1,6 +1,6 @@
 ﻿/* Functions to get info from forms */
 
-
+document.cookie; //create a cookie so we know which user is doing what thing
 var ref = new Firebase("group10app.firebaseio.com/web/data");
 
 function createAccount() {
@@ -90,12 +90,15 @@ function createAccount() {
     {
         window.location = "PatientMenu.html";
     }
+    
+    document.cookie = "username="+id;
 }
 
 // NEED TO CHANGE TO PULL INFO FROM THE USER OBJECT, DEPENDING ON WHO IS LOGGED IN
 
 // Display's a patient's first name in the menu
 function helloUser(email) {
+    document.cookie = "username=" + email; //create a cookie with the email
     var name = "";
     var index = email.indexOf('.')
     var id = email.substr(0,index);
@@ -126,11 +129,27 @@ function helloDoctor(email) {
 }
 
 // get's a patients response and displays it for the doctor
-function displayResponse() {
+function displayResponse(email, date) {
 
 
     // this array is for testing
-    var responseArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    var responseArray = [];
+    var index = email.indexOf('.')
+    var id = email.substr(0,index);
+    var userref = ref.child("users/"+ id + "/surveys/" + date);
+    ref.on("value", function(snapshot) {
+        var usr = snapshot.val();
+        responseArray[0] = usr.r0;
+        responseArray[1] = usr.r1;
+        responseArray[2] = usr.r2;
+        responseArray[3] = usr.r3;
+        responseArray[4] = usr.r4;
+        responseArray[5] = usr.r5;
+        responseArray[6] = usr.r6;
+        responseArray[7] = usr.r7;
+        responseArray[8] = usr.r8;
+        responseArray[9] = usr.r9;
+    });
     
     // set all table values
     var pain = document.getElementById("pain");
@@ -161,11 +180,11 @@ function displayResponse() {
     priority.innerText = "Critical";
 
     var patient = document.getElementById("patient");
-    patient.innerHTML = "Jake Irvin";
+    patient.innerHTML = id;
 
-    var date = document.getElementById("date");
+    var d = document.getElementById("date");
     //date for testing
-    date.innerHTML = "11/11/2011 12:36 PM";
+    d.innerHTML = date;
 
 }
 
