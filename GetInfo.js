@@ -1,6 +1,11 @@
 ﻿/* Functions to get info from forms */
 
+
+var ref = new Firebase("group10app.firebaseio.com/web/data");
+
 function createAccount() {
+
+    var userref = ref.child("users")
 
     var emailCheck = false;
     var passwordCheck = false;
@@ -67,6 +72,19 @@ function createAccount() {
     }
 
     emailCheck = true;
+    
+    var index = email.indexOf('.')
+    var id = email.substr(0,index);
+    
+    usersRef.child(id).set({
+        fName: firstName,
+        lName: lastName,
+        q: question,
+        an: answer,
+        eml: email,
+        pass: password1,
+        actType: 0
+    });
 
     if (emailCheck == true && passwordCheck == true)
     {
@@ -77,20 +95,31 @@ function createAccount() {
 // NEED TO CHANGE TO PULL INFO FROM THE USER OBJECT, DEPENDING ON WHO IS LOGGED IN
 
 // Display's a patient's first name in the menu
-function helloUser() {
-
-    var name = "Jake";
+function helloUser(email) {
+    var name = "";
+    var index = email.indexOf('.')
+    var id = email.substr(0,index);
+    var userref = ref.child("users/"+ id);
+    ref.on("value", function(snapshot) {
+        var usr = snapshot.val();
+        name = usr.fName;
+    });
     var displayName = document.getElementById("hello");
 
     displayName.innerHTML = "Hello " + name + "!";
 }
 
 // displays a doctor's last name on menu
-function helloDoctor() {
+function helloDoctor(email) {
 
-    var name = "Irvin";
-    var displayName = document.getElementById("hello");
-
+    var name = "";
+    var index = email.indexOf('.')
+    var id = email.substr(0,index);
+    var userref = ref.child("users/"+ id);
+    ref.on("value", function(snapshot) {
+        var usr = snapshot.val();
+        name = usr.lName;
+    });
     // get the doctor's last name
 
     displayName.innerHTML = "Hello Dr. " + name;
