@@ -19,6 +19,9 @@ function createAccount() {
     var email1 = document.getElementById("email").value;
     var password1 = document.getElementById("password1").value;
     var password2 = document.getElementById("password2").value;
+    var weight =  document.getElementById("weight").value;
+    var age =  document.getElementById("age").value;
+    var conditions =  document.getElementById("conditions").value;
 
     if (firstName == "")
     {
@@ -50,6 +53,16 @@ function createAccount() {
         alert("Please choose a password.");
         return false;
     }
+    if (age == "")
+    {
+        alert("Please choose a age.");
+        return false;
+    }
+    if (weight == "")
+    {
+        alert("Please choose a weight.");
+        return false;
+    }
 
     // Check if passwords match
     if (password1 != password2)
@@ -66,7 +79,8 @@ function createAccount() {
         window.usr = uid;
        var usrref = new Firebase("https://group10app.firebaseio.com/users");
         usrref.child(uid).set({ fname: firstName, lname: lastName, email: email1, pass: password1,
-                                     q: question, a: answer, DorP: 1
+                                     q: question, a: answer, DorP: 1, condition: conditions, 
+                                    years: age, pounds: weight
                    });
         usrref.child('currentUser').set(uid);
         window.location = "PatientMenu.html";
@@ -77,15 +91,6 @@ function login(){
     var email = document.getElementById("username").value;
     var uid = email.substr(0, email.indexOf('@'));
     var user = new Firebase("https://group10app.firebaseio.com/users/");
-//    user.on("value", function(snap) {
-//        alert("incorrect"); 
-//        var usrdata = snap.val();
-//        var exists = usrdata.child(uid);
-//        if(!exists){
-//            alert("incorrect login data"); 
-//            return false;
-//        }
-//    }
     user.child(uid).on("value", function(snap) {
         var usrdata = snap.val();
         try{
@@ -232,18 +237,34 @@ function doctorsOrders() {
 
 //code to display info on a patient's profile
 function displayPatientInfo() {
+    
+    
+    var usrref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        var uid = data.currentUser;
+        var user = new Firebase("https://group10app.firebaseio.com/users/");
+        user.child(uid).on("value", function(snap) {
+            var usrdata = snap.val();
+            var name = usrdata.fname;
+            var age = usrdata.years;
+            var weight = usrdata.pounds;
+            var conditions = usrdata.condition;
+            var displayName = document.getElementById("name");
+            displayName.innerHTML = name + "'s Profile";
+            var a = document.getElementById("age");
+            a.innerHTML = age;
+            var w = document.getElementById("weight");
+            w.innerHTML = weight;
+            var c = document.getElementById("conditions");
+            c.innerHTML = conditions;    
+        });
+    });
+    
+    
 
-    var name = "Jake Irvin";
-    var displayName = document.getElementById("name");
-
-    displayName.innerHTML = name + "'s Profile";
-
-    var age = document.getElementById("age");
-    age.innerHTML = 25;
-    var weight = document.getElementById("weight");
-    weight.innerHTML = 165;
-    var conditions = document.getElementById("conditions");
-    conditions.innerHTML = "allergic to cantelope";    
+    var name = "";
+    
 }
 
 // displays response history for doctor
