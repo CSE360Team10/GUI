@@ -1,10 +1,10 @@
-﻿/*
+/*
 Javascript code for getting survey results
 */
 
 // array with all the results
 var results = [0,0,0,0,0,0,0,0,0]
-var ref = new Firebase("group10app.firebaseio.com/web/data/");
+
 
 function selectPain(selected)
 {
@@ -478,31 +478,41 @@ function selectBreath(selected)
 
 function getResults()
 {
-    var usr = document.getCookie(); //retrieve cookie value to know what user to store the completed survey under
-    //cookie will be in the format username=id, where we will check against the id to know where to store the survey
-    //will need to store survey object here via Firebase
 
     var id = ""; // need to get the correct id
-    var ida = usr.split("="); //splits at the = in the cookie id
-    id = ida[1]; //second slot in array is the username
     var date = ""; //need to calculate date
+    var d = new Date();
+    date = d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();
+    var index = d.getTime();
     var symptoms = document.getElementById("otherSymptoms").value;
-
-    //the survey object should store: Date completed, array of responses from the one survey, and overall score to be able to set a priority on the doctor's page.
-
-    ref.child("users/" + id + "/surveys/" + date).set({
-        r0: results[0],
-        r1: results[1],
-        r2: results[2],
-        r3: results[3],
-        r4: results[4],
-        r5: results[5],
-        r6: results[6],
-        r7: results[7],
-        r8: results[8],
-        r9: symptoms
+    var usrref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        id = data.currentUser;
     });
-    ref.child("/surveys/" + date).set({
+    //the survey object should store: Date completed, array of responses from the one survey, and overall score to be able to set a priority on the doctor's page.
+    var overall = 0;
+    var prio = "";
+    for (var i = 0; i < 9; i++) //there will always be 9 questions to this specific survey
+    {
+        overall = overall + results[i];
+    }
+    overall = overall / 9; //average the score.
+
+    if (overall <= 3) //Patient has a low priority setting
+    {
+        prio = "Low";
+    }
+    else if (overall > 3 && overall <= 6) //moderate severity
+    {
+        prio = "Moderate";
+    }
+    else //high severity
+    {
+        prio = "Critical";
+    }
+    var ref = new Firebase("group10app.firebaseio.com");
+    ref.child("users").child(id).child("surveys").child(index).set({
         r0: results[0],
         r1: results[1],
         r2: results[2],
@@ -513,29 +523,29 @@ function getResults()
         r7: results[7],
         r8: results[8],
         r9: symptoms,
-        user: id
+        severity: prio,
+        time: date,
+        status: "unresolved"
+    });
+    ref.child("surveys").child(index).set({
+        r0: results[0],
+        r1: results[1],
+        r2: results[2],
+        r3: results[3],
+        r4: results[4],
+        r5: results[5],
+        r6: results[6],
+        r7: results[7],
+        r8: results[8],
+        r9: symptoms,
+        user: id,
+        severity: prio,
+        time: date,
+        status: "unresolved"
     });
 
     //calculate overall severity here
-    var overall = 0;
-    for (var i = 0; i < 9; i++) //there will always be 9 questions to this specific survey
-    {
-        overall = overall + results[i];
-    }
-    overall = overall / 9; //average the score.
-
-    if (overall <= 3) //Patient has a low priority setting
-    {
-        //set some var inside survey object to low
-    }
-    else if (overall > 3 && overall <= 6) //moderate severity
-    {
-        //set some var inside survey object to moderate
-    }
-    else //high severity
-    {
-        //set some var inside survey object to critical
-    }
+    
 
     window.location = "PatientMenu.html"; //these button navigations are no longer working for some reason
 }

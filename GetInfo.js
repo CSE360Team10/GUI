@@ -1,7 +1,9 @@
-﻿/* Functions to get info from forms */
+/* Functions to get info from forms */
+var uid;
+window.u = "name";
 
 //document.cookie; //create a cookie so we know which user is doing what thing
-var ref = new Firebase("https://group10app.firebaseio.com");
+var ref = new Firebase("https://group10app.firebaseio.com/web/data");
 var user;
 
 // this function creates a new account for the user on the Firebase server
@@ -56,102 +58,118 @@ function createAccount() {
         alert("Passwords do not match.");
         return false;
     }
-    else
-    {
-        passwordCheck = true;
-    }
+    passwordCheck = true;
+    
     
     if (passwordCheck == true) {
-       
-        ref.createUser({
-            email : email1,
-            password : password1
-        }, function (error, userData) {
-            if (error) {
-                console.log("Error creating user:", error);
-            } else {
-                console.log("Successfully created user account with uid:", userData.uid);
-            }
-        });
-        
-        var isNewUser = true;
-
-        //user var becomes an authdata object 
-        ref.authWithPassword({
-            email : email1,
-            password : password1
-        }, function (error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-            }
-        }, { remember: "sessionOnly" }); //logs that user in and returns their specific uid
-        
-        //adds personal info to the user's account data set
-
-        ref.onAuth(function (authData) {
-            if (authData && isNewUser) {
-                // save the user's profile into Firebase so we can list users,
-                // use them in Security and Firebase Rules, and show profiles
-                ref.child("users").child(authData.uid).set({
-                    fName: firstName,
-                    lName: lastName,
-                    q: question,
-                    an: answer
-                });
-            }
-        });
-   
+        var uid = email1.substr(0, email1.indexOf('@'));
+        window.usr = uid;
+       var usrref = new Firebase("https://group10app.firebaseio.com/users");
+        usrref.child(uid).set({ fname: firstName, lname: lastName, email: email1, pass: password1,
+                                     q: question, a: answer, DorP: 1
+                   });
+        usrref.child('currentUser').set(uid);
         window.location = "PatientMenu.html";
     }
 
+}
+function login(){
+    var email = document.getElementById("username").value;
+    var uid = email.substr(0, email.indexOf('@'));
+    var user = new Firebase("https://group10app.firebaseio.com/users/");
+//    user.on("value", function(snap) {
+//        alert("incorrect"); 
+//        var usrdata = snap.val();
+//        var exists = usrdata.child(uid);
+//        if(!exists){
+//            alert("incorrect login data"); 
+//            return false;
+//        }
+//    }
+    user.child(uid).on("value", function(snap) {
+        var usrdata = snap.val();
+        try{
+            var password = usrdata.pass;
+        }
+        catch(err){
+            alert("incorrect login data"); 
+            return false;
+        }
+        if(password === null){
+            alert("incorrect login data"); 
+            return false;
+        }
+        var p = document.getElementById("password").value;
+        if(p !== password){
+            alert("incorrect login data");
+            return false;
+        }
+        var usrref = new Firebase("https://group10app.firebaseio.com/users");
+        usrref.child('currentUser').set(uid);
+        var type = usrdata.DorP;
+        if(type === 1){
+            window.location = "PatientMenu.html";
+        }
+        else{
+            window.location = "DocterMenu.html";
+        }
+    });
 }
 
 // NEED TO CHANGE TO PULL INFO FROM THE USER OBJECT, DEPENDING ON WHO IS LOGGED IN
 
 // Display's a patient's first name in the menu
 function helloUser() {
-    var name = "";
-    var userRef = ref.child("users");
-    userref = userRef.child(user.uid); //not making the connection here
-    alert("Path to data made");
-
-    userref.on("value", function(snapshot) {
-        var usr = snapshot.val();
-        name = usr.fName;
+    var usrref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        var uid = data.currentUser;
+        var user = new Firebase("https://group10app.firebaseio.com/users/");
+        user.child(uid).on("value", function(snap) {
+            var usrdata = snap.val();
+            var name = usrdata.fname;
+            var displayName = document.getElementById("hello");
+            displayName.innerHTML = "Hello " + name + "!";
+        });
     });
-    var displayName = document.getElementById("hello");
     
-    displayName.innerHTML = "Hello " + name + "!";
 }
 
 // displays a doctor's last name on menu
-function helloDoctor(email) {
+function helloDoctor() {
 
-    var name = "";
-    var index = email.indexOf('.')
-    var id = email.substr(0,index);
-    var userref = ref.child("users/"+ id);
-    ref.on("value", function(snapshot) {
-        var usr = snapshot.val();
-        name = usr.lName;
+     var usrref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        var uid = data.currentUser;
+        var user = new Firebase("https://group10app.firebaseio.com/users/");
+        user.child(uid).on("value", function(snap) {
+            var usrdata = snap.val();
+            var name = usrdata.lname;
+            var displayName = document.getElementById("hello");
+            displayName.innerHTML = "Hello Dr. " + name;
+        });
     });
     // get the doctor's last name
 
-    displayName.innerHTML = "Hello Dr. " + name;
+    
 }
 
 // get's a patients response and displays it for the doctor
-function displayResponse(email, date) {
+function displayResponse() {
 
 
     // this array is for testing
     var responseArray = [];
-    var index = email.indexOf('.')
-    var id = email.substr(0,index);
-    var userref = ref.child("users/"+ id + "/surveys/" + date);
-    ref.on("value", function(snapshot) {
+    var id;
+    var ref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        id = data.currentUser;
+    });
+    
+    var userref = ref.child("users").child(id).child("surveys");
+    userref.on("value", function(snapshot) {
         var usr = snapshot.val();
         responseArray[0] = usr.r0;
         responseArray[1] = usr.r1;
@@ -259,24 +277,50 @@ function patientDisplayResponseHistory() {
 
     // display past responses
     // use arrays to get different info for each cell. Should be able to use a for loop I think
-    var dates = ["11/11/2011 12:07 PM", "12/11/2011 01:34 PM"];
-    var priority = ["Critical", "Moderate", "Low"];
-    var status = ["Not Cured", "Cured"];
-    var summary = ["stomach pain", "headache"];
+    var dates;
+    var priority;
+    var status;
+    var summary;
+    var id;
+    
+    
+    var usrref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        id = data.currentUser;
+        var ref = new Firebase("group10app.firebaseio.com");
+        ref.child("users").child(id).child("surveys").orderByKey().on("value", function(snapshot) {
+            snapshot.forEach(function(surveySnapshot) {
+                
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                console.log(i);
+                cell1.innerHTML = "<a href='PatientViewDoctorResponse.html'>" + surveySnapshot.val().time + "</a>";
+                cell2.innerHTML = surveySnapshot.val().severity;
+                cell3.innerHTML = surveySnapshot.val().status;
+                cell4.innerHTML = surveySnapshot.val().r9;
+            });
+        });
+    });
+    
+    console.log(dates);
 
     var table = document.getElementById("table");
 
-    for (i = 0; i < dates.length; i++) {
+    for (i = 0; i < num; i++) {
         var row = table.insertRow(1);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
-
+        console.log(i);
         cell1.innerHTML = "<a href='PatientViewDoctorResponse.html'>" + dates[i] + "</a>";
-        cell2.innerHTML = priority[i];
-        cell3.innerHTML = status[i];
-        cell4.innerHTML = summary[i];
+        cell2.innerHTML = priority.pop();
+        cell3.innerHTML = status.pop();
+        cell4.innerHTML = summary.pop();
     }
 }
 
