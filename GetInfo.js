@@ -433,3 +433,38 @@ function listPatients() {
         cell1.innerHTML = "<a href='DoctorViewPatientProfile.html'>" + name + "</a>"; //needs to display patient name + hyperlink
     }
 }
+/* Test user answer against system's logged security question answer. Redirects them to Login.html.*/
+function forgotPassword()
+{
+    //need to retrieve items
+    var password;
+    var securityQ;
+    var securityA;
+
+    var userA = document.getElementId("secQ");
+    if (userA == securityA)
+    {
+        alert("Your password is:" + password);
+        window.location = "Login.html";
+    }
+    else //answer incorrect
+    {
+        alert("Incorrect answer to the security question. Please try again.");
+        return false;
+    }
+}
+
+/*Retrieve account password, security question, and security question answer. Redirects to ForgotPassword.html.*/
+function retrieveAccountInfo()
+{
+    var userEmail = document.getElementById("email");
+    //if userEmail exists within the database then
+    {
+        window.location = "forgotPassword.html";
+    }
+    //else 
+    {
+        alert("We're sorry, but the email you provided isn't linked to a registered account. Please check the information you provided.");
+        return false;
+    }
+}
