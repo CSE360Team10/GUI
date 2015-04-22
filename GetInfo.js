@@ -111,7 +111,7 @@ function login(){
             window.location = "PatientMenu.html";
         }
         else{
-            window.location = "DoctorMenu.html";
+            window.location = "DocterMenu.html";
         }
     });
 }
@@ -136,31 +136,40 @@ function helloUser() {
 }
 
 // displays a doctor's last name on menu
-function helloDoctor(email) {
+function helloDoctor() {
 
-    var name = "";
-    var index = email.indexOf('.')
-    var id = email.substr(0,index);
-    var userref = ref.child("users/"+ id);
-    ref.on("value", function(snapshot) {
-        var usr = snapshot.val();
-        name = usr.lName;
+     var usrref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        var uid = data.currentUser;
+        var user = new Firebase("https://group10app.firebaseio.com/users/");
+        user.child(uid).on("value", function(snap) {
+            var usrdata = snap.val();
+            var name = usrdata.lname;
+            var displayName = document.getElementById("hello");
+            displayName.innerHTML = "Hello Dr. " + name;
+        });
     });
     // get the doctor's last name
 
-    displayName.innerHTML = "Hello Dr. " + name;
+    
 }
 
 // get's a patients response and displays it for the doctor
-function displayResponse(email, date) {
+function displayResponse() {
 
 
     // this array is for testing
     var responseArray = [];
-    var index = email.indexOf('.')
-    var id = email.substr(0,index);
-    var userref = ref.child("users/"+ id + "/surveys/" + date);
-    ref.on("value", function(snapshot) {
+    var id;
+    var ref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        id = data.currentUser;
+    });
+    
+    var userref = ref.child("users").child(id).child("surveys");
+    userref.on("value", function(snapshot) {
         var usr = snapshot.val();
         responseArray[0] = usr.r0;
         responseArray[1] = usr.r1;
@@ -268,24 +277,50 @@ function patientDisplayResponseHistory() {
 
     // display past responses
     // use arrays to get different info for each cell. Should be able to use a for loop I think
-    var dates = ["11/11/2011 12:07 PM", "12/11/2011 01:34 PM"];
-    var priority = ["Critical", "Moderate", "Low"];
-    var status = ["Not Cured", "Cured"];
-    var summary = ["stomach pain", "headache"];
+    var dates;
+    var priority;
+    var status;
+    var summary;
+    var id;
+    
+    
+    var usrref = new Firebase("https://group10app.firebaseio.com/users");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        id = data.currentUser;
+        var ref = new Firebase("group10app.firebaseio.com");
+        ref.child("users").child(id).child("surveys").orderByKey().on("value", function(snapshot) {
+            snapshot.forEach(function(surveySnapshot) {
+                
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                console.log(i);
+                cell1.innerHTML = "<a href='PatientViewDoctorResponse.html'>" + surveySnapshot.val().time + "</a>";
+                cell2.innerHTML = surveySnapshot.val().severity;
+                cell3.innerHTML = surveySnapshot.val().status;
+                cell4.innerHTML = surveySnapshot.val().r9;
+            });
+        });
+    });
+    
+    console.log(dates);
 
     var table = document.getElementById("table");
 
-    for (i = 0; i < dates.length; i++) {
+    for (i = 0; i < num; i++) {
         var row = table.insertRow(1);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
-
+        console.log(i);
         cell1.innerHTML = "<a href='PatientViewDoctorResponse.html'>" + dates[i] + "</a>";
-        cell2.innerHTML = priority[i];
-        cell3.innerHTML = status[i];
-        cell4.innerHTML = summary[i];
+        cell2.innerHTML = priority.pop();
+        cell3.innerHTML = status.pop();
+        cell4.innerHTML = summary.pop();
     }
 }
 
