@@ -478,19 +478,23 @@ function selectBreath(selected)
 
 function getResults()
 {
-
+    var name = "";
     var id = ""; // need to get the correct id
     var date = ""; //need to calculate date
     var d = new Date();
     date = d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();
     var index = d.getTime();
     var symptoms = document.getElementById("otherSymptoms").value;
-    var usrref = new Firebase("https://group10app.firebaseio.com/users");
+    var usrref = new Firebase("https://group10app.firebaseio.com/");
     usrref.on("value", function(snapshot) {
         var data = snapshot.val();
         id = data.currentUser;
     });
     //the survey object should store: Date completed, array of responses from the one survey, and overall score to be able to set a priority on the doctor's page.
+    var user = new Firebase("https://group10app.firebaseio.com/users/");
+        user.child(id).on("value", function(snap) {
+            name = snap.val().fname + " " + snap.val().lname;
+        });
     var overall = 0;
     var prio = "";
     for (var i = 0; i < 9; i++) //there will always be 9 questions to this specific survey
@@ -523,9 +527,12 @@ function getResults()
         r7: results[7],
         r8: results[8],
         r9: symptoms,
+        total: overall,
         severity: prio,
         time: date,
-        status: "unresolved"
+        status: "unresolved",
+        user: name,
+        num: index
     });
     ref.child("surveys").child(index).set({
         r0: results[0],
@@ -538,10 +545,11 @@ function getResults()
         r7: results[7],
         r8: results[8],
         r9: symptoms,
-        user: id,
+        user: name,
         severity: prio,
         time: date,
-        status: "unresolved"
+        status: "unresolved",
+        num: index
     });
 
     //calculate overall severity here
