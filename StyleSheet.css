@@ -28,6 +28,20 @@
     border: none;
 }
 
+/*Div for Forgotten Password table*/
+.passwordMenu {
+    border: 1px solid black;
+    text-align: center;
+    width: 220px;
+    height: auto;
+    font: 12px arial;
+    float:left; 
+}
+
+.passwordMenu table {
+    border: none;
+}
+
 /*Div for initial patient and/or doctor menu*/
 .patientMenu {
 
