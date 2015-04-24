@@ -264,7 +264,8 @@ function doctorsOrders() {
             });
         });
     });
-    
+    for(var i = 0; i < 1000000000; i++){  //litterally no idea why, but it wont work without this...
+    }
 
     window.location = "DocterMenu.html";
 }
