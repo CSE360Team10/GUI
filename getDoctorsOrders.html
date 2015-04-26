@@ -8,9 +8,23 @@
 <head>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script src="GetInfo.js"></script>
-    <script src="scripter.js"></script>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css">
     <title></title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font: 14px arial;
+        }
+
+        td {
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-top: 5px;
+            padding-right: 10px;
+        }
+    </style>
+
 </head>
 <body onload="getAllDrsOrders()">
     <table width="600" id="allDrsOrders">
