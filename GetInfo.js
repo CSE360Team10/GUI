@@ -23,9 +23,8 @@ function forgotPass(){
     var usrref = new Firebase("https://group10app.firebaseio.com");
     usrref.child('currentUser').set(uid);
     
-    if(uid){
-        window.location = "ForgotPassword.html";
-    }
+    window.location = "ForgotPassword.html";
+    
 }
 
 
@@ -99,13 +98,19 @@ function createAccount() {
     
     if (passwordCheck == true) {
         var uid = email1.substr(0, email1.indexOf('@'));
-       var ref = new Firebase("https://group10app.firebaseio.com");
+        var ref = new Firebase("https://group10app.firebaseio.com");
         ref.child("users").child(uid).set({ fname: firstName, lname: lastName, email: email1, pass: password1,
                                      q: question, a: answer, DorP: 1, condition: conditions, 
                                     years: age, pounds: weight
                    });
         ref.child('currentUser').set(uid);
-        window.location = "PatientMenu.html";
+        ref.on("value", function(snapshot) {
+            var data = snapshot.val();
+            var id = data.currentUser;
+            if(id === uid){
+                window.location = "PatientMenu.html";
+            }
+        });
     }
 
 }
@@ -166,7 +171,7 @@ function helloUser() {
 function helloDoctor() {
 
      var usrref = new Firebase("https://group10app.firebaseio.com/");
-    usrref.on("value", function(snapshot) {
+     usrref.on("value", function(snapshot) {
         var data = snapshot.val();
         var uid = data.currentUser;
         var user = new Firebase("https://group10app.firebaseio.com/users/");
@@ -259,14 +264,12 @@ function doctorsOrders() {
         var data = snapshot.val();
         ui = data.currentUser;
     });
-        alert(ui);
     var refr = new Firebase("https://group10app.firebaseio.com/users/");
     refr.child(ui).on("value", function(snap) {
         var usrdata = snap.val();
         dr = dr +  usrdata.lname;
        
     });
-         alert(dr);
             var prescription = document.getElementById("prescription").value;
             var orders = document.getElementById("orders").value;
             var usrref = new Firebase("https://group10app.firebaseio.com");
@@ -627,10 +630,9 @@ function forgotPassword2()
             securityA = data.a;
             password = data.pass;
             var userA = document.getElementById("qAnswer").value;
-            alert(userA + " " + securityA);
             if (userA == securityA)
             {
-                alert("Your password is:" + password);
+                alert("Your password is: " + password);
                 window.location = "Login.html";
             }
             else //answer incorrect
