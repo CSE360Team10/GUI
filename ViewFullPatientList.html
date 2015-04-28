@@ -7,9 +7,24 @@
     <script src="GetInfo.js"></script>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css">
     <title></title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font: 14px arial;
+        }
+
+        td {
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-top: 5px;
+            padding-right: 10px;
+        }
+    </style>
+
 </head>
 <body onload="listPatients()">
-    <table width="600" id="patientListTable">
+    <table width="200" id="patientListTable">
         <tr style="background-color: lightgray;">
             <td>
                 Patient Name:

@@ -12,6 +12,22 @@ function setPatient(patient){
     var ref = new Firebase("https://group10app.firebaseio.com/");
         ref.child('currentpatient').set(patient);
 }
+function forgotPass(){
+    
+    var usr = document.getElementById("username").value;
+    if(usr === ""){
+        alert("Enter email into the email field to retrieve password")
+        return false;
+    }
+    uid = usr.substr(0, usr.indexOf('@'));
+    var usrref = new Firebase("https://group10app.firebaseio.com");
+    usrref.child('currentUser').set(uid);
+    
+    if(uid){
+        window.location = "ForgotPassword.html";
+    }
+}
+
 
 // this function creates a new account for the user on the Firebase server
 function createAccount() {
@@ -235,35 +251,55 @@ function displayResponse() {
 function doctorsOrders() {
     
     var user = "";
-    var prescription = document.getElementById("prescription").value;
-    var orders = document.getElementById("orders").value;
-    var usrref = new Firebase("https://group10app.firebaseio.com");
-    usrref.on("value", function(snapshot) {
-        var data = snapshot.val().currentSurvey.user;
-        user = data.substr(0, data.indexOf(' '));
-        var ref = new Firebase("https://group10app.firebaseio.com/users");
-        ref.orderByChild("fname").equalTo(user).on("value", function(usr) {
-            usrref.child("currentpatient").set(usr.val());
-        });
-        
-        var id = snapshot.val().currentSurvey.num;
-        var ref = new Firebase("https://group10app.firebaseio.com/surveys");
-        ref.child(id).child("status").set("resolved");
-        ref.child(id).child("prescribe").set(prescription);
-        ref.child(id).child("order").set(orders);
-        
-        var ref = new Firebase("https://group10app.firebaseio.com/users");
-        ref.orderByChild("fname").equalTo(user).on("value", function(usr) {
-            usr.forEach(function(person){
-                var usn = person.val().email;
-                usn = usn.substr(0, usn.indexOf('@'));
-                console.log(id);
-                ref.child(usn).child("surveys").child(id).child("status").set("resolved");
-                ref.child(usn).child("surveys").child(id).child("prescribe").set(prescription);
-                ref.child(usn).child("surveys").child(id).child("order").set(orders);
-            });
-        });
+    var dr = "Dr. "
+    var ui = "";
+    
+    var refr = new Firebase("https://group10app.firebaseio.com");
+    refr.on("value", function(snapshot) {
+        var data = snapshot.val();
+        ui = data.currentUser;
     });
+        alert(ui);
+    var refr = new Firebase("https://group10app.firebaseio.com/users/");
+    refr.child(ui).on("value", function(snap) {
+        var usrdata = snap.val();
+        dr = dr +  usrdata.lname;
+       
+    });
+         alert(dr);
+            var prescription = document.getElementById("prescription").value;
+            var orders = document.getElementById("orders").value;
+            var usrref = new Firebase("https://group10app.firebaseio.com");
+            usrref.on("value", function(snapshot) {
+                var data = snapshot.val().currentSurvey.user;
+                user = data.substr(0, data.indexOf(' '));
+                var ref = new Firebase("https://group10app.firebaseio.com/users");
+                ref.orderByChild("fname").equalTo(user).on("value", function(usr) {
+                    usrref.child("currentpatient").set(usr.val());
+                });
+
+                var id = snapshot.val().currentSurvey.num;
+                var ref = new Firebase("https://group10app.firebaseio.com/surveys");
+                ref.child(id).child("status").set("resolved");
+                ref.child(id).child("prescribe").set(prescription);
+                ref.child(id).child("order").set(orders);
+                ref.child(id).child("doctor").set(dr);
+
+                var ref = new Firebase("https://group10app.firebaseio.com/users");
+                ref.orderByChild("fname").equalTo(user).on("value", function(usr) {
+                    usr.forEach(function(person){
+                        var usn = person.val().email;
+                        usn = usn.substr(0, usn.indexOf('@'));
+                        console.log(id);
+                        ref.child(usn).child("surveys").child(id).child("status").set("resolved");
+                        ref.child(usn).child("surveys").child(id).child("prescribe").set(prescription);
+                        ref.child(usn).child("surveys").child(id).child("order").set(orders);
+                        ref.child(usn).child("surveys").child(id).child("doctor").set(dr);
+                    });
+                });
+            });
+        
+    
     for(var i = 0; i < 1000000000; i++){  //litterally no idea why, but it wont work without this...
     }
 
@@ -553,72 +589,56 @@ function listPatients() {
     });
 }
 /* Test user answer against system's logged security question answer. Redirects them to Login.html.*/
-function forgotPassword()
+function forgotPassword1(){
+    var securityQ;
+    var uid
+    var usrref = new Firebase("https://group10app.firebaseio.com");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        uid = data.currentUser;
+        try{
+            usrref.child("users").child(uid).on("value", function(snapshot) {
+                var data = snapshot.val();
+                securityQ = data.q;
+                var question = document.getElementById("secQ");
+                question.innerHTML = securityQ;
+            });
+        }
+        catch(err){
+            alert("account not found");
+            return "false"
+        }
+    });
+}
+
+function forgotPassword2()
 {
     //need to retrieve items
     var password;
     var securityQ;
     var securityA;
-
-    var userA = document.getElementId("secQ");
-    if (userA == securityA)
-    {
-        alert("Your password is:" + password);
-        window.location = "Login.html";
-    }
-    else //answer incorrect
-    {
-        alert("Incorrect answer to the security question. Please try again.");
-        return false;
-    }
+    var uid
+    var usrref = new Firebase("https://group10app.firebaseio.com");
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        uid = data.currentUser;
+        usrref.child("users").child(uid).on("value", function(snapshot) {
+            var data = snapshot.val();
+            securityA = data.a;
+            password = data.pass;
+            var userA = document.getElementById("qAnswer").value;
+            alert(userA + " " + securityA);
+            if (userA == securityA)
+            {
+                alert("Your password is:" + password);
+                window.location = "Login.html";
+            }
+            else //answer incorrect
+            {
+                alert("Incorrect answer to the security question. Please try again.");
+                return false;
+            }
+        });
+    });
 }
 
-/*Retrieve account password, security question, and security question answer. Redirects to ForgotPassword.html.*/
-function retrieveAccountInfo()
-{
-    var userEmail = document.getElementById("email");
-    //if userEmail exists within the database then
-    {
-        window.location = "forgotPassword.html";
-    }
-    //else 
-    {
-        alert("We're sorry, but the email you provided isn't linked to a registered account. Please check the information you provided.");
-        return false;
-    }
-}
-/* Test user answer against system's logged security question answer. Redirects them to Login.html.*/
-function forgotPassword()
-{
-    //need to retrieve items
-    var password;
-    var securityQ;
-    var securityA;
-
-    var userA = document.getElementId("secQ");
-    if (userA == securityA)
-    {
-        alert("Your password is:" + password);
-        window.location = "Login.html";
-    }
-    else //answer incorrect
-    {
-        alert("Incorrect answer to the security question. Please try again.");
-        return false;
-    }
-}
-
-/*Retrieve account password, security question, and security question answer. Redirects to ForgotPassword.html.*/
-function retrieveAccountInfo()
-{
-    var userEmail = document.getElementById("email");
-    //if userEmail exists within the database then
-    {
-        window.location = "forgotPassword.html";
-    }
-    //else 
-    {
-        alert("We're sorry, but the email you provided isn't linked to a registered account. Please check the information you provided.");
-        return false;
-    }
-}
