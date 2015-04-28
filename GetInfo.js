@@ -22,9 +22,13 @@ function forgotPass(){
     uid = usr.substr(0, usr.indexOf('@'));
     var usrref = new Firebase("https://group10app.firebaseio.com");
     usrref.child('currentUser').set(uid);
-    
-    window.location = "ForgotPassword.html";
-    
+    usrref.on("value", function(snapshot) {
+        var data = snapshot.val();
+        var id = data.currentUser;
+        if(id === uid){
+            window.location = "ForgotPassword.html";
+        }
+    });
 }
 
 
