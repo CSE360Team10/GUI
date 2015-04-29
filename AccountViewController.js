@@ -159,10 +159,8 @@ function createAccount() {
     if (passwordCheck == true) {
         var uid = email1.substr(0, email1.indexOf('@'));
         var ref = new Firebase("https://group10app.firebaseio.com");
-        ref.child("users").child(uid).set({ fname: firstName, lname: lastName, email: email1, pass: password1,
-                                     q: question, a: answer, DorP: 1, condition: conditions, 
-                                    years: age, pounds: weight
-                   });
+        var account = new User(firstName,lastName,age,question,answer,email1,password1,weight,conditions);
+        ref.child("users").child(uid).set(account);
         ref.child('currentUser').set(uid);
         ref.on("value", function(snapshot) {
             var data = snapshot.val();
