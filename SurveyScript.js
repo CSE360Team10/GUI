@@ -516,41 +516,13 @@ function getResults()
         prio = "Critical";
     }
     var ref = new Firebase("group10app.firebaseio.com");
-    ref.child("users").child(id).child("surveys").child(index).set({
-        r0: results[0],
-        r1: results[1],
-        r2: results[2],
-        r3: results[3],
-        r4: results[4],
-        r5: results[5],
-        r6: results[6],
-        r7: results[7],
-        r8: results[8],
-        r9: symptoms,
-        total: overall,
-        severity: prio,
-        time: date,
-        status: "unresolved",
-        user: name,
-        num: index
-    });
-    ref.child("surveys").child(index).set({
-        r0: results[0],
-        r1: results[1],
-        r2: results[2],
-        r3: results[3],
-        r4: results[4],
-        r5: results[5],
-        r6: results[6],
-        r7: results[7],
-        r8: results[8],
-        r9: symptoms,
-        user: name,
-        severity: prio,
-        time: date,
-        status: "unresolved",
-        num: index
-    });
+    var surveyObj = new SurveyResults(results[0],results[1],results[2],results[3],results[4],results[5],results[6],results[7],results[8],symptoms,name,prio,date,index);
+    console.log(surveyObj);
+    alert();
+    surveyObj.total = overall;
+    
+    ref.child("users").child(id).child("surveys").child(index).set(surveyObj);
+    ref.child("surveys").child(index).set(surveyObj);
 
     //calculate overall severity here
     

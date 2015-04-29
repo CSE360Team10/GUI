@@ -182,11 +182,11 @@ function displayPatientInfo() {
         var uid = data.currentUser;
         var user = new Firebase("https://group10app.firebaseio.com/users/");
         user.child(uid).on("value", function(snap) {
-            var usrdata = snap.val();
-            var name = usrdata.fname;
-            var age = usrdata.years;
-            var weight = usrdata.pounds;
-            var conditions = usrdata.condition;
+            var userdata = snap.val(); //this is the user object, grabbed from the firebase
+            var name = userdata.fname;
+            var age = userdata.years;
+            var weight = userdata.pounds;
+            var conditions = userdata.condition;
             var displayName = document.getElementById("name");
             displayName.innerHTML = name + "'s Profile";
             var a = document.getElementById("age");
@@ -203,7 +203,7 @@ function displayPatientInfo() {
 function doctorDisplayPatientInfo(){
     var ref = new Firebase("https://group10app.firebaseio.com");
     ref.on("value", function(snapshot) {
-        var data = snapshot.val().currentpatient;
+        var data = snapshot.val().currentpatient; //this is the user object, grabbed from the firebase
         var name = data.fname;
         var age = data.years;
         var weight = data.pounds;

@@ -3,7 +3,7 @@ JS containing the object constructors
 */
 
 
-function survey(r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,user,severity,time,num){
+function SurveyResults(r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,user,severity,time,num){
     this.r0 = r0;
     this.r1 = r1;
     this.r2 = r2;
