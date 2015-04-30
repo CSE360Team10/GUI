@@ -1,6 +1,6 @@
-/*Fucntions to submit surveys from the patient as well as doctor responses? - submission controller*/
+/*Functions to submit surveys from the patient as well as doctor responses - submission controller*/
 
-// gives a doctor's orders
+// Gives a doctor's orders
 function doctorsOrders() {
     
     var user = "";
@@ -51,7 +51,8 @@ function doctorsOrders() {
             });
         
     
-    for(var i = 0; i < 1000000000; i++){  //literally no idea why, but it wont work without this...
+    for(var i = 0; i < 1000000000; i++){  
+        //literally no idea why, but it wont work without this...
     }
 
     window.location = "DocterMenu.html";

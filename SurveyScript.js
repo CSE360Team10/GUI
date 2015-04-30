@@ -2,9 +2,11 @@
 Javascript code for getting survey results
 */
 
-// array with all the results
+// Array with all the results
 var results = [0,0,0,0,0,0,0,0,0]
 
+
+//Function to handle pain in the survey responses
 
 function selectPain(selected)
 {
@@ -59,6 +61,7 @@ function selectPain(selected)
     selected.className = "selectedNumberDiv";
 }
 
+//Function to handle tiredness in the survey responses
 function selectTiredness(selected)
 {
     var a = document.getElementById("2.0");
@@ -111,6 +114,7 @@ function selectTiredness(selected)
     selected.className = "selectedNumberDiv";
 }
 
+//Function to handle nausea in the survey responses
 function selectNausea(selected)
 {
     var a = document.getElementById("3.0");
@@ -163,6 +167,7 @@ function selectNausea(selected)
     selected.className = "selectedNumberDiv";
 }
 
+//Function to handle depression in the survey responses
 function selectDepression(selected)
 {
     var a = document.getElementById("4.0");
@@ -215,6 +220,7 @@ function selectDepression(selected)
     selected.className = "selectedNumberDiv";
 }
 
+//Function to handle anxiety in the survey responses
 function selectAnxiety(selected)
 {
     var a = document.getElementById("5.0");
@@ -267,7 +273,7 @@ function selectAnxiety(selected)
     selected.className = "selectedNumberDiv";
 }
 
-
+//Function to handle drowsiness in the survey responses
 function selectDrowsiness(selected)
 {
     var a = document.getElementById("6.0");
@@ -320,6 +326,7 @@ function selectDrowsiness(selected)
     selected.className = "selectedNumberDiv";
 }
 
+//Function to handle appetite in the survey responses
 function selectAppetite(selected)
 {
     var a = document.getElementById("7.0");
@@ -372,6 +379,7 @@ function selectAppetite(selected)
     selected.className = "selectedNumberDiv";
 }
 
+//Function to handle wellbeing in the survey responses
 function selectWellbeing(selected)
 {
     var a = document.getElementById("8.0");
@@ -424,6 +432,7 @@ function selectWellbeing(selected)
     selected.className = "selectedNumberDiv";
 }
 
+//Function to handle shortness breath in the survey responses
 function selectBreath(selected) 
 {
     var a = document.getElementById("9.0");
@@ -476,6 +485,7 @@ function selectBreath(selected)
     selected.className = "selectedNumberDiv";
 }
 
+//Function to handle the results of the survyer and pass it to firebase
 function getResults()
 {
     var name = "";

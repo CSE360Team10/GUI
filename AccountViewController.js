@@ -8,6 +8,7 @@ function setPatient(patient){
         ref.child('currentpatient').set(patient);
 }
 
+//Prompts the user to input an email address so the code can fetch the security question
 function forgotPass() {
     
     var usr = document.getElementById("username").value;

@@ -91,6 +91,8 @@ function forgotPassword1(){
     });
 }
 
+//Checks if the answer to the security question is 
+//correct and provides the user's password in a popup
 function forgotPassword2()
 {
     //need to retrieve items

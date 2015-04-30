@@ -1,12 +1,13 @@
-/*Gunctions to control survey response VIEWS for both doctor and patient - VIEW controller */
+/*Functions to control survey response VIEWS for both doctor and patient - VIEW controller */
 
+//Defines the survey in the firebase object
 function setSurvey(survey) {
     var ref = new Firebase("https://group10app.firebaseio.com/");
         ref.child('currentSurvey').set(survey);
 }
 
 
-// displays all responses for the doctor
+// Displays all responses for the doctor
 function displayResponses() { 
 
     var table = document.getElementById("tableID");
@@ -76,11 +77,11 @@ function displayResponses() {
 }
 
     
-// displays response history for doctor
+// Displays response history for doctor
 function displayResponseHistory() {
 
-    // display past responses
-    // use arrays to get different info for each cell. Should be able to use a for loop I think
+    // Display past responses
+    // Use arrays to get different info for each cell. Should be able to use a for loop I think
     var dates = ["11/11/2011 12:07 PM", "12/11/2011 01:34 PM"];
     var priority = ["Critical", "Moderate"];
     var status = ["Not Cured", "Cured"];
@@ -102,11 +103,11 @@ function displayResponseHistory() {
     }
 }
 
-// display response history for patient
+//Displays every doctor response for the patient
 function patientDisplayResponseHistory() {
 
-    // display past responses
-    // use arrays to get different info for each cell. Should be able to use a for loop I think
+    // Display past responses
+    // Use arrays to get different info for each cell. Should be able to use a for loop I think
     var dates;
     var priority;
     var status;
@@ -141,10 +142,11 @@ function patientDisplayResponseHistory() {
     });
 }
 
+//Displays every doctor response for the doctor
 function doctorDisplayResponseHistory() {
 
-    // display past responses
-    // use arrays to get different info for each cell. Should be able to use a for loop I think
+    // Display past responses
+    // Use arrays to get different info for each cell. Should be able to use a for loop I think
     var dates;
     var priority;
     var status;
@@ -175,7 +177,7 @@ function doctorDisplayResponseHistory() {
 }
 
 
-// for a patient viewing a doctor's response
+// For a patient viewing a doctor's response
 function patientViewResponse() {
 
     var ref = new Firebase("https://group10app.firebaseio.com");

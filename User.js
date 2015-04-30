@@ -2,6 +2,7 @@
 JS containing the object constructors
 */
 
+//User Class
 function User(first, last, age, securityQ, securityA, email, password, weight, conditions) {
     this.fname = first;
     this.lname = last;

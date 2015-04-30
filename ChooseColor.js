@@ -1,4 +1,4 @@
-﻿/*
+/*
 JS to change the color of the row based on patient condition
 */
 var table;
@@ -6,6 +6,8 @@ var row;
 var cell;
 var priority;
 
+
+//Color Rows in which the survey is listed as Critical or Moderate
 function colorRow() {
 
     var status;
@@ -25,6 +27,8 @@ function colorRow() {
         }
     }
 }
+
+
 
 function colorPriority() {
 
